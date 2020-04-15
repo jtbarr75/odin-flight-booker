@@ -1,0 +1,23 @@
+<h1>Flights</h1>
+<%= form_tag(flights_path, method: "get") do %>
+  <%= label_tag :from_airport_id%>
+  <%= select_tag :from_airport_id, options_from_collection_for_select(@airports, 'id', 'code'), :prompt => "Any" %>
+  <%= label_tag :to_airport_id%>
+  <%= select_tag :to_airport_id, options_from_collection_for_select(@airports, 'id', 'code'), :prompt => "Any" %>
+  <%= label_tag :start_time %>
+  <%= select_tag :start_time, options_for_select(Flight.start_times), :prompt => "Any" %>
+  <%= submit_tag 'Search'%>
+<% end %>
+<%= form_tag(flights_path) do %>
+  <% @flights.each do |flight| %>
+  <div class='field'>
+    <%= radio_button_tag(:flight_id, flight.id) %>
+    <%= label_tag :flight_id, flight.info%>
+    
+    <br><br>
+  </div>
+  <% end %>
+  <%= label_tag :passengers %>
+  <%= select_tag :passengers, options_for_select([1,2,3,4]) %>
+  <%= submit_tag "Book Flight"%>
+<% end %>
